@@ -66,160 +66,163 @@ There are several settings you can configure to customize the behavior of this e
 			<td>
 				Arguments passed to Black to format Python files. Each argument should be provided as a separate string in the array. E.g
 				<code>
-					"black-formatter.args" = ["--config", "<file>"]
+					"black-formatter.args" = ["--config", "
+					<file>
+						"]
+						<tr>
+							<td>
+								black-formatter.cwd
+							</td>
+							<td>
+								<code>
+									[]
+								</code>
+							</td>
+							<td>
+								Sets the current working directory used to format Python files with Black. By default, it uses the root directory of the workspace
+								<code>
+									${workspaceFolder}
+								</code>
+								. You can set it to
+								<code>
+									${fileDirname}
+								</code>
+								to use the parent folder of the file being formatted as the working directory for Black.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								black-formatter.path
+							</td>
+							<td>
+								<code>
+									[]
+								</code>
+							</td>
+							<td>
+								Path or command to be used by the extension to format Python files with Black. Accepts an array of a single or multiple strings. If passing a command, each argument should be provided as a separate string in the array. If set to
+								<code>
+									["black"]
+								</code>
+								, it will use the version of Black available in the
+								<code>
+									PATH
+								</code>
+								environment variable. Note: Using this option may slowdown formatting.
+								<br />
+								Examples:
+								<br />
+								<code>
+									["~/global_env/black"]
+								</code>
+								<br />
+								<code>
+									["conda", "run", "-n", "lint_env", "python", "-m", "black"]
+								</code>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								black-formatter.interpreter
+							</td>
+							<td>
+								<code>
+									[]
+								</code>
+							</td>
+							<td>
+								Path to a Python executable or a command that will be used to launch the Black server and any subprocess. Accepts an array of a single or multiple strings. When set to
+								<code>
+									[]
+								</code>
+								, the extension will use the path to the selected Python interpreter. If passing a command, each argument should be provided as a separate string in the array.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								black-formatter.importStrategy
+							</td>
+							<td>
+								<code>
+									useBundled
+								</code>
+							</td>
+							<td>
+								Defines which Black formatter binary to be used to format Python files. When set to
+								<code>
+									useBundled
+								</code>
+								, the extension will use the Black formatter binary that is shipped with the extension. When set to
+								<code>
+									fromEnvironment
+								</code>
+								, the extension will attempt to use the Black formatter binary and all dependencies that are available in the currently selected environment. **Note**: If the extension can't find a valid Black formatter binary in the selected environment, it will fallback to using the binary that is shipped with the extension. The
+								<code>
+									black-formatter.path
+								</code>
+								setting takes precedence and overrides the behavior of
+								<code>
+									black-formatter.importStrategy
+								</code>
+								.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								black-formatter.showNotification
+							</td>
+							<td>
+								<code>
+									off
+								</code>
+							</td>
+							<td>
+								Controls when notifications are shown by this extension.  Accepted values are
+								<code>
+									onError
+								</code>
+								,
+								<code>
+									onWarning
+								</code>
+								,
+								<code>
+									always
+								</code>
+								and
+								<code>
+									off
+								</code>
+								.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								black-formatter.serverTransport
+							</td>
+							<td>
+								<code>
+									stdio
+								</code>
+							</td>
+							<td>
+								Selects the transport protocol to be used by the Black server. When set to
+								<code>
+									stdio
+								</code>
+								, the extension will use the standard input/output streams to communicate with the Black server. When set to
+								<code>
+									pipe
+								</code>
+								, the extension will use a named pipe (on Windows) or Unix Domain Socket (on Linux/Mac) to communicate with the Black server. The
+								<code>
+									stdio
+								</code>
+								transport protocol is the default and recommended option for most users.
+							</td>
+						</tr>
+					</file>
 				</code>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				black-formatter.cwd
-			</td>
-			<td>
-				<code>
-					[]
-				</code>
-			</td>
-			<td>
-				Sets the current working directory used to format Python files with Black. By default, it uses the root directory of the workspace
-				<code>
-					${workspaceFolder}
-				</code>
-				. You can set it to
-				<code>
-					${fileDirname}
-				</code>
-				to use the parent folder of the file being formatted as the working directory for Black.
-			</td>
-		</tr>
-		<tr>
-			<td>
-				black-formatter.path
-			</td>
-			<td>
-				<code>
-					[]
-				</code>
-			</td>
-			<td>
-				Path or command to be used by the extension to format Python files with Black. Accepts an array of a single or multiple strings. If passing a command, each argument should be provided as a separate string in the array. If set to
-				<code>
-					["black"]
-				</code>
-				, it will use the version of Black available in the
-				<code>
-					PATH
-				</code>
-				environment variable. Note: Using this option may slowdown formatting.
-				<br />
-				Examples:
-				<br />
-				<code>
-					["~/global_env/black"]
-				</code>
-				<br />
-				<code>
-					["conda", "run", "-n", "lint_env", "python", "-m", "black"]
-				</code>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				black-formatter.interpreter
-			</td>
-			<td>
-				<code>
-					[]
-				</code>
-			</td>
-			<td>
-				Path to a Python executable or a command that will be used to launch the Black server and any subprocess. Accepts an array of a single or multiple strings. When set to
-				<code>
-					[]
-				</code>
-				, the extension will use the path to the selected Python interpreter. If passing a command, each argument should be provided as a separate string in the array.
-			</td>
-		</tr>
-		<tr>
-			<td>
-				black-formatter.importStrategy
-			</td>
-			<td>
-				<code>
-					useBundled
-				</code>
-			</td>
-			<td>
-				Defines which Black formatter binary to be used to format Python files. When set to
-				<code>
-					useBundled
-				</code>
-				, the extension will use the Black formatter binary that is shipped with the extension. When set to
-				<code>
-					fromEnvironment
-				</code>
-				, the extension will attempt to use the Black formatter binary and all dependencies that are available in the currently selected environment. **Note**: If the extension can't find a valid Black formatter binary in the selected environment, it will fallback to using the binary that is shipped with the extension. The
-				<code>
-					black-formatter.path
-				</code>
-				setting takes precedence and overrides the behavior of
-				<code>
-					black-formatter.importStrategy
-				</code>
-				.
-			</td>
-		</tr>
-		<tr>
-			<td>
-				black-formatter.showNotification
-			</td>
-			<td>
-				<code>
-					off
-				</code>
-			</td>
-			<td>
-				Controls when notifications are shown by this extension.  Accepted values are
-				<code>
-					onError
-				</code>
-				,
-				<code>
-					onWarning
-				</code>
-				,
-				<code>
-					always
-				</code>
-				and
-				<code>
-					off
-				</code>
-				.
-			</td>
-		</tr>
-		<tr>
-			<td>
-				black-formatter.serverTransport
-			</td>
-			<td>
-				<code>
-					stdio
-				</code>
-			</td>
-			<td>
-				Selects the transport protocol to be used by the Black server. When set to
-				<code>
-					stdio
-				</code>
-				, the extension will use the standard input/output streams to communicate with the Black server. When set to
-				<code>
-					pipe
-				</code>
-				, the extension will use a named pipe (on Windows) or Unix Domain Socket (on Linux/Mac) to communicate with the Black server. The
-				<code>
-					stdio
-				</code>
-				transport protocol is the default and recommended option for most users.
 			</td>
 		</tr>
 	</tbody>
